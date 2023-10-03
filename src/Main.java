@@ -3,67 +3,50 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        Scanner leitor = new Scanner(System.in);
-        String nomeDoClinte = "Victor de Alneida";
+        String nome = "Clark Kent";
         String tipoConta = "Corrente";
-        double saldo = 100;
-        int comandoOperacao = 0;
+        double saldo = 1599.99;
+        int opcao = 0;
 
-        System.out.println("*************");
-        System.out.println("Dados iniciais do Cliente");
-        System.out.println("Nome: " + nomeDoClinte);
-        System.out.println("Tipo de conta: " + tipoConta);
-        System.out.println("Saldo Inicial: " + saldo);
-        System.out.println("*************");
-        System.out.println();
+        System.out.println("***********************");
+        System.out.println("\nNome do cliente: " + nome);
+        System.out.println("Tipo conta: " + tipoConta);
+        System.out.println("Saldo atual: " + saldo);
+        System.out.println("\n***********************");
 
+        String menu = """
+                ** Digite sua opção **
+                1 - Consultar saldo
+                2 - Transferir valor
+                3 - Receber valor 
+                4 - Sair
+                
+                """;
+        Scanner leitura = new Scanner(System.in);
 
-        while (comandoOperacao != 4) {
-            System.out.println("Operações");
-            System.out.println();
-            System.out.println("1 - Consultar Saldos");
-            System.out.println("2 - Receber Valor");
-            System.out.println("3 - Tranferir Valor");
-            System.out.println("4 - Sair");
-            System.out.println();
+        while (opcao != 4) {
+            System.out.println(menu);
+            opcao = leitura.nextInt();
 
-            System.out.println("Digite a opção desejada: ");
-            comandoOperacao = leitor.nextInt();
-
-            if(comandoOperacao == 4){
-                System.out.println("Finalizando Operações!");
-                break;
-            }
-
-            if(comandoOperacao > 4){
-                System.out.println("Comando invalido");
-                System.out.println();
-            }
-            if (comandoOperacao == 1){
-                System.out.println("Seu saldo é: " + saldo);
-                System.out.println();
-            }
-            if (comandoOperacao == 2){
-                System.out.println("Digite valor a receber: ");
-                double recebeValor = leitor.nextDouble();
-                saldo = recebeValor + saldo;
-                System.out.println("Seu novo saldo é: " + saldo);
-                System.out.println();
-            }
-            if(comandoOperacao == 3){
-                System.out.println("Digite valor de transferencia: ");
-                double recebeValor = leitor.nextDouble();
-                if(saldo < recebeValor){
-                    System.out.println("Saldo insuficiente, seu saldo é de: " + saldo);
-                    System.out.println();
-                }else {
-                    saldo = saldo - recebeValor;
-                    System.out.println("Transferencia realizada com sucesso, seu no saldo é de: " + saldo);
-                    System.out.println();
+            if (opcao == 1){
+                System.out.println("O saldo atualizado é " + saldo);
+            } else if (opcao == 2) {
+                System.out.println("Qual o valor que deseja transferir?");
+                double valor = leitura.nextDouble();
+                if (valor > saldo) {
+                    System.out.println("Não há saldo para realizar a transferência.");
+                } else {
+                    saldo -= valor;
+                    System.out.println("Novo saldo: " + saldo);
                 }
+            } else if (opcao == 3) {
+                System.out.println("Valor recebido: ");
+                double valor = leitura.nextDouble();
+                saldo += valor;
+                System.out.println("Novo saldo: " + saldo);
+            } else if (opcao != 4) {
+                System.out.println("Opção inválida!");
             }
-
         }
-
     }
 }
